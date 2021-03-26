@@ -24,3 +24,7 @@ section {
     border-radius: 5px;
     box-shadow: 1px 1px;
 }
+
+#searchIcon {
+    width: 20px;
+}
