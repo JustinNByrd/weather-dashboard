@@ -8,8 +8,7 @@ var previousSearches = [];
 
 // check localStorage for previous searches
 if (localStorage.getItem("weather-previous-searches")) {
-    var localStorageVal = localStorage.getItem("weather-previous-searches");
-    previousSearches = localStorageVal.split(",");
+    previousSearches = JSON.parse(localStorage.getItem("weather-previous-searches"));
     // call function to display the searches
     displayPreviousSearches();
 }
@@ -20,22 +19,37 @@ function addPreviousSearch(searchTerm) {
     if (previousSearches.unshift(searchTerm) > maxPreviousSearches)
         previousSearches.pop();
     // store updated array to localStorage
-    localStorage.setItem("weather-previous-searches", previousSearches);
+    localStorage.setItem("weather-previous-searches", JSON.stringify(previousSearches));
+    displayPreviousSearches();
 }
 
 function displayPreviousSearches() {
+    previousSearchSectionEl.empty();
     // loop through array and add to previousSearches section
     for (var i = 0; i < previousSearches.length; i++) {
         var previousSearchCard = $("<card>");
         previousSearchCard.html(previousSearches[i]);
+        previousSearchCard.addClass("previousSearch");
+        previousSearchCard.attr("data-search-term", previousSearches[i]);
         previousSearchSectionEl.append(previousSearchCard);
     }
+    // add clear history option
+    var clearHistoryEl = $("<card>");
+    clearHistoryEl.text("Clear History");
+    clearHistoryEl.addClass("previousSearch");
+    clearHistoryEl.attr("data-search-term", "clearHistory");
+    previousSearchSectionEl.append(clearHistoryEl);
+
 }
 
-// runs when user clicks on search
-function getWeather() {
+// runs when user clicks on the search button or a previous search
+function getWeather(searchTerm) {
+    if (typeof searchTerm != "object")
+        var searchCity = searchTerm;
+    else
+        var searchCity = $("#city").val();
+
     // first api call to get basic current conditions and lat/lon of city
-    var searchCity = $("#city").val();
     var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURI(searchCity)}&units=imperial&appid=bb2efb8b9d929b540e18d3c391b671c4`;
     fetch(requestUrl)
         .then(function (response) {
@@ -131,3 +145,13 @@ function getWeather() {
 
 // set event listener to track user input
 searchButtonEl.on('click', getWeather);
+
+// set event listener on previous searches
+$(".previousSearch").on('click', function(event) {
+    if (event.target.dataset.searchTerm == "clearHistory") {
+        localStorage.clear();
+        previousSearchSectionEl.empty();
+    }
+    else
+        getWeather(event.target.dataset.searchTerm);
+});
