@@ -76,12 +76,12 @@ function getWeather(searchTerm) {
             resultsSection.append(resultTempEl);
 
             var resultHumidityEl = $("<p>");
-            resultHumidityEl.html(`${data.main.humidity}&percnt;`);
+            resultHumidityEl.html(`Humidity: ${data.main.humidity}&percnt;`);
             resultsSection.append(resultHumidityEl);
 
             var resultWindEl = $("<p>");
             var resultWind = data.wind.speed;
-            resultWindEl.text(`${Number.parseFloat(resultWind).toPrecision(2)} MPH`);
+            resultWindEl.text(`Wind Speed: ${Number.parseFloat(resultWind).toPrecision(2)} MPH`);
             resultsSection.append(resultWindEl);
 
             // second api call to get uv index, weather icon info and forecast data
@@ -147,10 +147,11 @@ function getWeather(searchTerm) {
 searchButtonEl.on('click', getWeather);
 
 // set event listener on previous searches
-$(".previousSearch").on('click', function(event) {
+$(previousSearchSectionEl).on('click', '.previousSearch', function(event) {
     if (event.target.dataset.searchTerm == "clearHistory") {
         localStorage.clear();
         previousSearchSectionEl.empty();
+        previousSearches = [];
     }
     else
         getWeather(event.target.dataset.searchTerm);
