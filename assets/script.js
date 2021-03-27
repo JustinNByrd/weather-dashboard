@@ -2,9 +2,10 @@
 var searchButtonEl = $("#searchIcon");
 var resultsSection = $("#resultsSection");
 
-// ran when user clicks on search
+// runs when user clicks on search
 function getWeather()
     {
+        // first api call to get basic current conditions and lat/lon of city
         var searchCity = $("#city").val();
         var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURI(searchCity)}&units=imperial&appid=bb2efb8b9d929b540e18d3c391b671c4`;
         fetch(requestUrl)
@@ -34,6 +35,16 @@ function getWeather()
                 var resultWind = data.wind.speed;
                 resultWindEl.text(`${Number.parseFloat(resultWind).toPrecision(2)} MPH`);
                 resultsSection.append(resultWindEl);
+
+                // second api call to get uv index, weather icon info and forecast data
+                requestUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&exclude=minutely,hourly,alerts&units=imperial&appid=bb2efb8b9d929b540e18d3c391b671c4`;
+                fetch(requestUrl)
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        console.log("here");
+                    });
             });
     }
 
