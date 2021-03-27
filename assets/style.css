@@ -30,13 +30,33 @@ section {
     padding: 5px;
 }
 
+.forecast {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.block {
+    flex-basis: 100%;
+}
+
+card {
+    margin: 5px;
+    padding: 5px;
+    background-color: lightblue;
+}
+
 #searchIcon {
     width: 20px;
+}
+
+.conditionsImg {
+    width: 35px;
 }
 
 span {
     padding: 4px;
 }
+
 .green {
     background-color: green;
 }
