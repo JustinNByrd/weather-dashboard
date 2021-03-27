@@ -43,7 +43,15 @@ function getWeather()
                         return response.json();
                     })
                     .then(function(data) {
-                        console.log("here");
+                        var uvClass;
+                        if (data.current.uvi < 3)
+                            uvClass = "green";
+                        else if (data.current.uvi < 6)
+                            uvClass = "yellow";
+                        else
+                            uvClass = "red";
+                        var uvIndexHTML = `<p>UV Index: <span id="currentUVI" class="${uvClass}">${data.current.uvi}</span>`;
+                        resultsSection.append(uvIndexHTML);
                     });
             });
     }
