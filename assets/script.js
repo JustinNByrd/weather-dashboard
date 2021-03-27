@@ -1,7 +1,22 @@
 // set global variables
+const maxPreviousSearches = 7;
 var searchButtonEl = $("#searchIcon");
 var resultsSection = $("#resultsSection");
 var date = new Date();
+var previousSearches = [];
+
+// check localStorage for previous searches
+if (localStorage.getItem("weather-previous-searches"))
+    previousSearches = localStorage.getItem("weather-previous-searches");
+
+// called from getWeather() on successful api call to add search to previousSearches
+function addPreviousSearch(searchTerm) {
+    // add search term to beginning of array and only keep a max of maxPreviousSearches
+    if (previousSearches.unshift(searchTerm) > maxPreviousSearches)
+        previousSearches.pop();
+    // store updated array to localStorage
+    localStorage.setItem("weather-previous-searches", previousSearches);
+}
 
 // runs when user clicks on search
 function getWeather() {
@@ -15,6 +30,10 @@ function getWeather() {
         .then(function (data) {
             resultsSection.empty();
             var location = data.name;
+            
+            // add to previous searches
+            addPreviousSearch(searchCity);
+
             var shortDate = date.toLocaleDateString();
 
             var resultHeadingEl = $("<h2>");
