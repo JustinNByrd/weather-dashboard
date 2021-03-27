@@ -2,12 +2,17 @@
 const maxPreviousSearches = 7;
 var searchButtonEl = $("#searchIcon");
 var resultsSection = $("#resultsSection");
+var previousSearchSectionEl = $("#previousSearches");
 var date = new Date();
 var previousSearches = [];
 
 // check localStorage for previous searches
-if (localStorage.getItem("weather-previous-searches"))
-    previousSearches = localStorage.getItem("weather-previous-searches");
+if (localStorage.getItem("weather-previous-searches")) {
+    var localStorageVal = localStorage.getItem("weather-previous-searches");
+    previousSearches = localStorageVal.split(",");
+    // call function to display the searches
+    displayPreviousSearches();
+}
 
 // called from getWeather() on successful api call to add search to previousSearches
 function addPreviousSearch(searchTerm) {
@@ -16,6 +21,15 @@ function addPreviousSearch(searchTerm) {
         previousSearches.pop();
     // store updated array to localStorage
     localStorage.setItem("weather-previous-searches", previousSearches);
+}
+
+function displayPreviousSearches() {
+    // loop through array and add to previousSearches section
+    for (var i = 0; i < previousSearches.length; i++) {
+        var previousSearchCard = $("<card>");
+        previousSearchCard.html(previousSearches[i]);
+        previousSearchSectionEl.append(previousSearchCard);
+    }
 }
 
 // runs when user clicks on search
@@ -30,7 +44,7 @@ function getWeather() {
         .then(function (data) {
             resultsSection.empty();
             var location = data.name;
-            
+
             // add to previous searches
             addPreviousSearch(searchCity);
 

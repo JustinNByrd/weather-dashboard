@@ -23,6 +23,11 @@ header {
     grid-column: 2;
 }
 
+#previousSearches {
+    display: flex;
+    flex-direction: column;
+}
+
 section {
     border: 1px solid black;
     border-radius: 5px;
