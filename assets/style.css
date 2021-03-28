@@ -30,6 +30,10 @@ header {
     flex-direction: column;
 }
 
+.previousSearch {
+    margin-bottom: 0px;
+}
+
 section {
     border: 1px solid black;
     border-radius: 5px;
@@ -47,6 +51,10 @@ section {
 .forecast {
     display: flex;
     flex-wrap: wrap;
+}
+
+.clickable:hover {
+    cursor: pointer;
 }
 
 .block {

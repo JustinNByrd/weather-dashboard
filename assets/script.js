@@ -42,14 +42,14 @@ function displayPreviousSearches() {
     for (var i = 0; i < previousSearches.length; i++) {
         var previousSearchCard = $("<card>");
         previousSearchCard.html(previousSearches[i]);
-        previousSearchCard.addClass("previousSearch");
+        previousSearchCard.addClass("previousSearch clickable");
         previousSearchCard.attr("data-search-term", previousSearches[i]);
         previousSearchSectionEl.append(previousSearchCard);
     }
     // add clear history option
     var clearHistoryEl = $("<card>");
     clearHistoryEl.text("Clear History");
-    clearHistoryEl.addClass("previousSearch");
+    clearHistoryEl.addClass("previousSearch clickable");
     clearHistoryEl.attr("data-search-term", "clearHistory");
     previousSearchSectionEl.append(clearHistoryEl);
 
