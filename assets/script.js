@@ -16,7 +16,7 @@ if (localStorage.getItem("weather-previous-searches")) {
 // called from getWeather() on successful api call to add search to previousSearches
 function addPreviousSearch(searchTerm) {
     // capitalize the first letter of each word in search
-    searchTerm = capFirstLetter(searchTerm)
+    searchTerm = capFirstLetter(searchTerm);
     // check to see if search is already in search results
     if (previousSearches.includes(searchTerm)) {
         // move search to beging of array
@@ -52,7 +52,6 @@ function displayPreviousSearches() {
     clearHistoryEl.addClass("previousSearch clickable");
     clearHistoryEl.attr("data-search-term", "clearHistory");
     previousSearchSectionEl.append(clearHistoryEl);
-
 }
 
 // runs when user clicks on the search button or a previous search
@@ -177,7 +176,7 @@ function capFirstLetter(strText) {
 searchButtonEl.on('click', getWeather);
 
 // set event listener on previous searches
-$(previousSearchSectionEl).on('click', '.previousSearch', function(event) {
+$(previousSearchSectionEl).on('click', '.previousSearch', function (event) {
     if (event.target.dataset.searchTerm == "clearHistory") {
         localStorage.clear();
         previousSearchSectionEl.empty();
