@@ -16,7 +16,7 @@ if (localStorage.getItem("weather-previous-searches")) {
 // called from getWeather() on successful api call to add search to previousSearches
 function addPreviousSearch(searchTerm) {
     // add search term to beginning of array and only keep a max of maxPreviousSearches
-    if (previousSearches.unshift(searchTerm) > maxPreviousSearches)
+    if (previousSearches.unshift(capFirstLetter(searchTerm)) > maxPreviousSearches)
         previousSearches.pop();
     // store updated array to localStorage
     localStorage.setItem("weather-previous-searches", JSON.stringify(previousSearches));
@@ -141,6 +141,16 @@ function getWeather(searchTerm) {
                     }
                 });
         });
+}
+
+function capFirstLetter(strText) {
+    var arrText = strText.split(" ");
+    for (var i = 0; i < arrText.length; i++) {
+        var arrWord = arrText[i].split("");
+        arrWord[0] = arrWord[0].toUpperCase();
+        arrText[i] = arrWord.join("");
+    }
+    return arrText.join(" ");
 }
 
 // set event listener to track user input
