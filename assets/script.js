@@ -72,7 +72,7 @@ function getWeather(searchTerm) {
 
             // if location not found, set message and end function
             if (data.cod == 404) {
-                resultsSection.html(`<h2>OOPS! Sorry, but "${searchCity}" could not be found.  Please try another search.`);
+                resultsSection.html(`<h3>OOPS! Sorry, but "${searchCity}" could not be found.  Please try another search.</h3>`);
                 return;
             }
 
@@ -159,6 +159,10 @@ function getWeather(searchTerm) {
                         cardEl.append(forecastHumidity);
                     }
                 });
+        })
+        .catch(err => {
+            resultsSection.html("<h3>OOPS! An error occured while processing your request.  Please try again later.</h3>");
+            console.log(err);
         });
 }
 
