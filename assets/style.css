@@ -8,6 +8,8 @@ header {
     text-align: center;
     border-radius: 5px;
     box-shadow: 1px 1px;
+    padding: 10px;
+    margin-bottom: 10px;
 }
 
 .grid-container {
@@ -35,6 +37,13 @@ section {
     padding: 5px;
 }
 
+#forecastSection {
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    box-shadow: none;
+}
+
 .forecast {
     display: flex;
     flex-wrap: wrap;
@@ -52,6 +61,7 @@ card {
 
 #searchIcon {
     width: 20px;
+    vertical-align: bottom;
 }
 
 .conditionsImg {
