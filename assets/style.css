@@ -25,6 +25,10 @@ header {
     grid-column: 2;
 }
 
+#searchSection {
+    white-space: nowrap;
+}
+
 #previousSearches {
     display: flex;
     flex-direction: column;
