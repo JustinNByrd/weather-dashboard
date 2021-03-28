@@ -70,6 +70,13 @@ function getWeather(searchTerm) {
         })
         .then(function (data) {
             resultsSection.empty();
+
+            // if location not found, set message and end function
+            if (data.cod == 404) {
+                resultsSection.html(`<h2>OOPS! Sorry, but "${searchCity}" could not be found.  Please try another search.`);
+                return;
+            }
+
             var location = data.name;
 
             // add to previous searches
